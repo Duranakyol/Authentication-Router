@@ -3,13 +3,13 @@ import React from "react";
 function Home() {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <nav class="navbar-brand" href="#">
+      <nav className="navbar navbar-expand-lg bg-light">
+        <div className="container-fluid">
+          <nav className="navbar-brand" href="#">
             Navbar
           </nav>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -17,23 +17,23 @@ function Home() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <nav class="nav-link active" aria-current="page" href="#">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <nav className="nav-link active" aria-current="page" href="#">
                   Home
                 </nav>
               </li>
-              <li class="nav-item">
-                <nav class="nav-link" href="#">
+              <li className="nav-item">
+                <nav className="nav-link" href="#">
                   Link
                 </nav>
               </li>
-              <li class="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <nav
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -41,39 +41,39 @@ function Home() {
                 >
                   Dropdown
                 </nav>
-                <ul class="dropdown-menu">
+                <ul className="dropdown-menu">
                   <li>
-                    <nav class="dropdown-item" href="#">
+                    <nav className="dropdown-item" href="#">
                       Action
                     </nav>
                   </li>
                   <li>
-                    <nav class="dropdown-item" href="#">
+                    <nav className="dropdown-item" href="#">
                       Another action
                     </nav>
                   </li>
                   <li>
-                    <hr class="dropdown-divider" />
+                    <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <nav class="dropdown-item" href="#">
+                    <nav className="dropdown-item" href="#">
                       Something else here
                     </nav>
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <nav class="nav-link disabled">Disabled</nav>
+              <li className="nav-item">
+                <nav className="nav-link disabled">Disabled</nav>
               </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form className="d-flex" role="search">
               <input
-                class="form-control me-2"
+                className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success" type="submit">
                 Search
               </button>
             </form>
