@@ -1,8 +1,14 @@
+import { Avatar, Container, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useIsLoggedIn } from "../config/hooks";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useSelector } from "react-redux";
+
 function AuthLayout() {
   const isLoggedIn = useIsLoggedIn();
+
+  const error = useSelector((state) => state.auth.error);
 
   if (isLoggedIn === null) {
     return <h1>Loading...</h1>;
@@ -10,7 +16,19 @@ function AuthLayout() {
     return <Navigate replace to="/" />;
   }
 
-  return <Outlet />;
+  return (
+    <Container maxWidth="xs" sx={{ pt: 4 }}>
+      <Avatar sx={{ mx: "auto", bgcolor: "blueviolet" }}>
+        <LockOutlinedIcon />
+      </Avatar>
+      {error && (
+        <Typography sx={{ textAlign: "center", color: "error.main" }}>
+          {error}
+        </Typography>
+      )}
+      <Outlet />
+    </Container>
+  );
 }
 
 export default AuthLayout;

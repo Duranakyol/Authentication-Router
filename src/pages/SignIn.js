@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  TextField,
-  CssBaseline,
-  Button,
-  Box,
-  Container,
-  Link,
-  Avatar,
-  Typography,
-} from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { TextField, Button, Box, Link, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { changeEmail, changePassword } from "../redux/authSlice";
+import { changeEmail, changePassword, register } from "../redux/authSlice";
+import { Link as RouterLink } from "react-router-dom";
 
 function SignIn() {
   const email = useSelector((state) => state.auth.email);
@@ -29,51 +20,52 @@ function SignIn() {
     dispatch(changePassword(e.currentTarget.value));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(register({ email, password }));
+  };
+
   return (
-    <div>
-      <CssBaseline />
-      <Container maxWidth="xs">
-        <Box component="form" sx={{ mt: 4 }}>
-          <Avatar sx={{ mx: "auto", bgcolor: "blueviolet" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography variant="h5" sx={{ textAlign: "center" }}>
-            Login
-          </Typography>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email Address"
-            required
-            autoComplete="email"
-            autoFocus
-            onChange={handleEmailChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Password"
-            required
-            type="password"
-            onChange={handlePasswordChange}
-          />
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-            SIGN-IN
-          </Button>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mt: 4,
-            }}
-          >
-            <Link>Forgot Password?</Link>
-            <Link>Don't have a account? Sign Up</Link>
-          </Box>
-        </Box>
-      </Container>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Login
+      </Typography>
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Email Address"
+        required
+        autoComplete="email"
+        autoFocus
+        onChange={handleEmailChange}
+      />
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Password"
+        required
+        type="password"
+        onChange={handlePasswordChange}
+      />
+      <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+        SIGN-IN
+      </Button>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mt: 4,
+        }}
+      >
+        <Link component={RouterLink} to="../forgot-password">
+          Forgot Password?
+        </Link>
+        <Link component={RouterLink} to="../sign-up">
+          Don't have a account? Sign Up
+        </Link>
+      </Box>
+    </form>
   );
 }
 
