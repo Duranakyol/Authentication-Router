@@ -70,7 +70,13 @@ function SignUp() {
         value={password}
         onChange={handlePasswordChange}
       />
-      <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={isLoading}
+        fullWidth
+        sx={{ mt: 2 }}
+      >
         {isLoading ? "Loading..." : "Sign-Up"}
       </Button>
       <Box

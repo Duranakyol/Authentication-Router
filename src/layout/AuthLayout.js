@@ -1,9 +1,8 @@
-import { Avatar, Container, Typography } from "@mui/material";
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useIsLoggedIn } from "../config/hooks";
+import { Avatar, Container, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useSelector } from "react-redux";
+import { useIsLoggedIn } from "../config/hooks";
 
 function AuthLayout() {
   const isLoggedIn = useIsLoggedIn();

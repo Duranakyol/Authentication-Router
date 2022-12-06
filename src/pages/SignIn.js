@@ -1,14 +1,16 @@
 import React from "react";
 import { TextField, Button, Box, Link, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { changeEmail, changePassword, register } from "../redux/authSlice";
+import { changeEmail, changePassword, logIn } from "../redux/authSlice";
 import { Link as RouterLink } from "react-router-dom";
 
 function SignIn() {
   const email = useSelector((state) => state.auth.email);
   const password = useSelector((state) => state.auth.password);
 
-  console.log("->UP", email, password);
+  console.log("->IN", email, password);
+
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const dispatch = useDispatch();
 
@@ -22,7 +24,7 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ email, password }));
+    dispatch(logIn({ email, password }));
   };
 
   return (
@@ -37,6 +39,7 @@ function SignIn() {
         required
         autoComplete="email"
         autoFocus
+        value={email}
         onChange={handleEmailChange}
       />
       <TextField
@@ -45,10 +48,17 @@ function SignIn() {
         label="Password"
         required
         type="password"
+        value={password}
         onChange={handlePasswordChange}
       />
-      <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-        SIGN-IN
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={isLoading}
+        fullWidth
+        sx={{ mt: 2 }}
+      >
+        {isLoading ? "Loading..." : "Sign-In"}
       </Button>
       <Box
         sx={{
