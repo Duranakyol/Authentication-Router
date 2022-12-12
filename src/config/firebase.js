@@ -1,12 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateCurrentUser,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  deleteDoc,
+  addDoc,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 const firebaseConfig = {
   apiKey: "AIzaSyCanv1RMghe4Gt662fntR9_aAzXEv1ng4A",
   authDomain: "products-4ca00.firebaseapp.com",
@@ -20,12 +23,37 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 getAnalytics(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
-export const signUp = async (name, email, password) => {
-  await createUserWithEmailAndPassword(auth, email, password);
-  await updateCurrentUser(auth, { displayName: name });
+const productsRef = collection(db, "products");
+
+export const useProductLister = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    return onSnapshot(productsRef, (snapshot) => {
+      setProducts(
+        snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return { id: doc.id, ...data, createdAt: data.createdAt?.toDate() };
+        })
+      );
+    });
+  }, []);
+  return products;
 };
 
-export const signIn = async (email, password) => {
-  await signInWithEmailAndPassword(auth, email, password);
+export const deleteProduct = (id) => {
+  deleteDoc(doc(db, "products", id));
+};
+
+export const addProduct = () => {
+  const uid = auth.currentUser?.uid;
+  if (!uid) return;
+  addDoc(productsRef, {
+    name: "Xiaomi",
+    description: "108 MP Kamera",
+    price: "700 €",
+    uid,
+  });
 };
