@@ -9,7 +9,9 @@ import {
   deleteDoc,
   addDoc,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setProducts } from "../redux/productsSlice";
 const firebaseConfig = {
   apiKey: "AIzaSyCanv1RMghe4Gt662fntR9_aAzXEv1ng4A",
   authDomain: "products-4ca00.firebaseapp.com",
@@ -25,22 +27,20 @@ getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-const productsRef = collection(db, "products");
+export const productsRef = collection(db, "products");
 
-export const useProductLister = () => {
-  const [products, setProducts] = useState([]);
-
+export const useProductListener = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     return onSnapshot(productsRef, (snapshot) => {
-      setProducts(
-        snapshot.docs.map((doc) => {
-          const data = doc.data();
-          return { id: doc.id, ...data, createdAt: data.createdAt?.toDate() };
-        })
-      );
+      const docs = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return { id: doc.id, ...data, createdAt: data.createdAt?.toDate() };
+      });
+
+      dispatch(setProducts(docs));
     });
-  }, []);
-  return products;
+  }, [dispatch]);
 };
 
 export const deleteProduct = (id) => {

@@ -1,16 +1,18 @@
-import {
-  useProductLister,
-  deleteProduct,
-  addProduct,
-} from "../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useProductListener } from "../config/firebase";
+import { addProduct, deleteProduct } from "../redux/productsSlice";
 
 export default function Home() {
-  const products = useProductLister();
+  useProductListener();
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
+
   return (
     <div>
       <button
         onClick={() => {
-          addProduct();
+          dispatch(addProduct());
         }}
       >
         ADD PRODUCT
@@ -20,7 +22,7 @@ export default function Home() {
           <h2>{product.name}</h2>
           <button
             onClick={() => {
-              deleteProduct(product.id);
+              dispatch(deleteProduct(product.id));
             }}
           >
             DELETE
